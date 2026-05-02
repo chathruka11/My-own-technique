@@ -17,10 +17,13 @@ jobs:
           sudo apt install -y git zip unzip colormake build-essential libltdl-dev libffi-dev libssl-dev python3-dev autoconf automake libtool pkg-config zlib1g-dev adb openjdk-17-jdk
           pip install --user --upgrade buildozer cython virtualenv
 
+      - name: Install Android Build Tools
+        run: |
+          yes | sdkmanager --sdk_root=$ANDROID_HOME "build-tools;33.0.0" "platforms;android-31" "platform-tools"
+
       - name: Build with Buildozer
         run: |
-          # Android Licenses පිළිගන්නා අණ මෙතන තියෙනවා
-          yes | /usr/local/lib/android/sdk/tools/bin/sdkmanager --licenses || true
+          yes | sdkmanager --sdk_root=$ANDROID_HOME --licenses || true
           buildozer android debug
         continue-on-error: false
 
