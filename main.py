@@ -5,7 +5,6 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.scrollview import ScrollView
-import requests
 
 class PusaAI(App):
     def build(self):
@@ -38,13 +37,11 @@ class PusaAI(App):
         msg = self.user_input.text
         if msg:
             self.chat_history.text += f"\nඔයා: {msg}"
-            # මෙතනදී තමයි අපි GitHub සර්වර් එක හරහා මාව සම්බන්ධ කරන්නේ
             response = self.get_ai_response(msg)
             self.chat_history.text += f"\nපූසා: {response}\n"
             self.user_input.text = ""
 
     def get_ai_response(self, text):
-        # API Keys නැතිව GitHub Proxy හරහා වැඩ කරන තර්කය පසුව මෙතනට එක්වේ
         return "මචං, මම දැන් APK එක ඇතුළේ වැඩ! අපි වීඩියෝ එක හදමුද?"
 
 if __name__ == "__main__":
