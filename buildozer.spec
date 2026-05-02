@@ -11,11 +11,15 @@ orientation = portrait
 osx.python_version = 3
 osx.kivy_version = 1.9.1
 fullscreen = 0
+
+# මෙතන තමයි වැදගත්ම ටික
 android.archs = armeabi-v7a, arm64-v8a
 android.allow_backup = True
 android.minapi = 21
 android.sdk = 31
-android.ndk = 23b
+android.ndk = 25b
+android.build_tools_version = 33.0.0
+android.permissions = INTERNET
 android.private_storage = True
 
 [buildozer]
