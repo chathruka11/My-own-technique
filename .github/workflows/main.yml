@@ -1,1 +1,42 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+
+      - name: Install Buildozer dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git zip unzip colormake build-essential libltdl-dev libffi-dev libssl-dev python3-dev autoconf automake libtool pkg-config zlib1g-dev adb openjdk-17-jdk
+          pip install --user --upgrade buildozer cython virtualenv
+
+      - name: Install Android Build Tools
+        run: |
+          # මෙතන තමයි කලින් ලෙඩ දුන්න තැන හරි පාර පෙන්වන්නේ
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "build-tools;33.0.0" "platforms;android-31" "platform-tools"
+
+      - name: Build with Buildozer
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses || true
+          buildozer android debug
+        continue-on-error: false
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: PusaAI-Package
+          path: bin/*.apk
 
