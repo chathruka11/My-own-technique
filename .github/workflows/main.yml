@@ -19,12 +19,12 @@ jobs:
 
       - name: Install Android Build Tools
         run: |
-          # මෙතනදී අපි හරියටම පාර පෙන්වනවා
+          # මෙතන තමයි අපි අලුතින්ම හදපු පාර (Path) තියෙන්නේ
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME "build-tools;33.0.0" "platforms;android-31" "platform-tools"
 
       - name: Build with Buildozer
         run: |
-          # ලයිසන් ටිකත් හරියටම පිළිගන්නවා
+          # ලයිසන් ටිකත් අලුත්ම විදිහට පිළිගන්නවා
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses || true
           buildozer android debug
         continue-on-error: false
